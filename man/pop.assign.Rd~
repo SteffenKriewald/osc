@@ -1,0 +1,42 @@
+\name{pop.assign}
+\alias{pop.assign}
+\title{
+Assign population data to city clusters
+}
+\description{
+After clustering city information, assign population data from an additional dataframe with coloumns indicated as lat and long.
+}
+\usage{
+pop.assign(cluster, points, dist=1000)
+}
+\arguments{
+  \item{cluster}{
+  The from cca() generated dataframe with cluster-information.
+}
+  \item{points}{
+    Dataframe with additional data, containing at least a lat and long coloumn with point coordinates which will be assigned.
+}
+  \item{dist}{
+    The assignment distance given in meters. Are the given point coordinates within this distance from an indentified cluster, this point will be assigned to the cluster.
+}
+}
+\details{
+Multiple points can be assigned to the same Cluster. If no cluster is within the given distance, then the cluster Id  will be 0.
+}
+\value{
+Returns the dataframe given as points with an additional coloumn cluster_id refering to the identified cluster. A cluster_id 0 indicates that no cluster was within the given distance.
+}
+
+\author{
+Steffen Kriewald
+}
+
+\examples{
+data(landcover)
+
+t <- cca(landcover, cell.class=1,s=1000, unit="m")
+points <- data.frame(long=c(13.1,13.4),lat=c(52.4,52.1),name=c("Pappelhausen","Neuer Garten"))
+
+pop.assign(cluster=t$cluster, points=points, dist=1000)
+}
+\keyword{utils}

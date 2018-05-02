@@ -1,0 +1,7 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {2}First clustering}{1}
+\contentsline {section}{\numberline {3}Clustering of geo-referenced data}{3}
+\contentsline {subsection}{\numberline {3.1}City Clustering}{5}
+\contentsline {subsection}{\numberline {3.2}Clustering point data}{5}
+\contentsline {section}{\numberline {4}Comparison of the two Versions - matrix vs. list}{7}

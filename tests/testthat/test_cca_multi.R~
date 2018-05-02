@@ -1,0 +1,18 @@
+context("CCA Multi")
+
+test_that("cca works for exampledata2", {
+	data(exampledata2)
+	expect_equivalent(length(table(cca(exampledata2, s=1, mode=1))), 12)
+})
+test_that("cca works for example data", {
+	data(exampledata)
+	max.x <- max(exampledata$x)
+	max.y <- max(exampledata$y)
+	exampledata.pop <- exampledata.cluster <- matrix(0,nrow=max.x,ncol=max.y)
+	for(i in 1:NROW(exampledata)){
+		exampledata.pop[exampledata$x[i],exampledata$y[i]] <- exampledata$z[i]
+		exampledata.cluster[exampledata$x[i],exampledata$y[i]] <- exampledata$cluster[i]
+	}
+	expect_that(cca(exampledata.pop, s=1, mode=3), is_equivalent_to(exampledata.cluster))
+})
+

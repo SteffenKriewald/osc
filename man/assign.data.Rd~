@@ -1,0 +1,38 @@
+\name{assign.data}
+\alias{assign.data}
+\title{
+Assign data to clusters
+}
+\description{
+After clustering assign additional data from a data frame with columns indicated as latitude and longitude.
+}
+\usage{
+assign.data(cluster, points, dist=1000)
+}
+\arguments{
+  \item{cluster}{
+  The from cca() generated data frame with cluster-information.
+}
+  \item{points}{
+    Data frame with additional data, containing at least a "lat" and "long" column with point coordinates which will be assigned.
+}
+  \item{dist}{
+    The assignment distance given in meters. Are the given point coordinates within this distance from an identified cluster, this point will be assigned to the cluster.
+}
+}
+\details{
+Multiple points can be assigned to the same cluster. If no cluster is within the given distance, the cluster_id  will be 0.
+}
+\value{
+Returns the data frame given as points with an additional column "cluster_id" referring to the identified cluster. A cluster_id 0 indicates that no cluster was within the given distance.
+}
+
+\examples{
+data(landcover)
+
+t <- cca(landcover, cell.class=1,s=1000, unit="m")
+points <- data.frame(long=c(13.1,13.4),lat=c(52.4,52.1),name=c("Pappelhausen","Neuer Garten"))
+
+assign.data(cluster=t$cluster, points=points, dist=1000)
+}
+\keyword{utils}
