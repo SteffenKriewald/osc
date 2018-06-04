@@ -192,7 +192,7 @@ assign.data <- function(cluster, points, dist=1000){
 # buffer
 #########################################################
 
-osc.buffer <- function(input, width)
+osc.buffer <- function(input, width, return.width=F)
 {	
   if(class(input)=="RasterLayer"){
   m <- matrix(input[], nrow=input@nrows, byrow=TRUE)
@@ -200,7 +200,19 @@ osc.buffer <- function(input, width)
     m <- input
     returnraster <- F
   }
-	m1 <- .C("ccaBuffED", m=as.integer(m), nr=as.integer(dim(m)[1]), nc=as.integer(dim(m)[2]), sz=as.integer(width))
+	if(return.width){
+	  m1 <- .C("ccaBuffEDsz",
+	           m=as.integer(m),
+	           nr=as.integer(dim(m)[1]),
+	           nc=as.integer(dim(m)[2]),
+	           sz=as.integer(width))
+	}else{
+	  m1 <- .C("ccaBuffED",
+	           m=as.integer(m),
+	           nr=as.integer(dim(m)[1]),
+	           nc=as.integer(dim(m)[2]),
+	           sz=as.integer(width))
+	}
 	m1 <- m1$m
 #	m1[which(m1<0)] <- -1
 	m1 <- matrix(m1, nrow=dim(m)[1])
