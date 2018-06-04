@@ -194,14 +194,16 @@ void ccaBuffED(int *m, int *nr, int *nc, int *sz)
 
 void ccaBuffEDsz(int *m, int *nr, int *nc, int *sz)
 {
-  int i,j,k,l,s=*sz;
-  for(i=0; i<*nc; i++){
-    for(j=0; j<*nr; j++){
-      if(m[i**nr+j]==1)
-        for(k=max(0,i-s); k<=min(*nc-1,i+s); k++)
-          for(l=max(0,j-s); l<=min(*nr-1,j+s); l++)
-            if(sqrt(((k-i)*(k-i))+((l-j)*(l-j)))<=s && m[k**nr+l]==0)
-              m[k**nr+l] = s;
+  int i,j,k,l,s;
+  for(s=0; s<*sz; s++){
+    for(i=0; i<*nc; i++){
+      for(j=0; j<*nr; j++){
+        if(m[i**nr+j]==1)
+          for(k=max(0,i-s); k<=min(*nc-1,i+s); k++)
+            for(l=max(0,j-s); l<=min(*nr-1,j+s); l++)
+              if(sqrt(((k-i)*(k-i))+((l-j)*(l-j)))<=s && m[k**nr+l]==0)
+                m[k**nr+l] = -s;
+      }
     }
   }
 }
