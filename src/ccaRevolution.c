@@ -253,7 +253,7 @@ void ccaBuffEDszS(int *m, int *nr, int *nc, int *sz, int *nz)
 
 void ccaBuffEDszN(int *m, int *nr, int *nc, int *sz)
 {
-  int i,j,k,l,c,s;
+  int i,j,k,l,s;
   //Rprintf("Test");
     for(i=0; i<*nc; i++){
       for(j=0; j<*nr; j++){
