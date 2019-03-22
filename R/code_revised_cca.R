@@ -192,7 +192,7 @@ assign.data <- function(cluster, points, dist=1000){
 # buffer
 #########################################################
 
-osc.buffer <- function(input, width, return.width=F)
+osc.buffer <- function(input, width=max(dim(input)), return.width=F, complete=F)
 {	
   if(class(input)=="RasterLayer"){
   m <- matrix(input[], nrow=input@nrows, byrow=TRUE)
@@ -201,11 +201,27 @@ osc.buffer <- function(input, width, return.width=F)
     returnraster <- F
   }
 	if(return.width){
-	  m1 <- .C("ccaBuffEDsz",
-	           m=as.integer(m),
-	           nr=as.integer(dim(m)[1]),
-	           nc=as.integer(dim(m)[2]),
-	           sz=as.integer(width))
+#	  print(sum(m==0))
+	  if(complete){
+	    # m1 <- .C("ccaBuffEDszS",
+	    #          m=as.integer(m),
+	    #          nr=as.integer(dim(m)[1]),
+	    #          nc=as.integer(dim(m)[2]),
+	    #          sz=as.integer(width),
+	    #          nz=as.integer(sum(m==0))) 
+	    m1 <- .C("ccaBuffEDszNN",
+	             m=as.integer(m),
+	             nr=as.integer(dim(m)[1]),
+	             nc=as.integer(dim(m)[2]),
+	             sz=as.integer(width)) 
+	  }else{
+	    m1 <- .C("ccaBuffEDszN",
+	             m=as.integer(m),
+	             nr=as.integer(dim(m)[1]),
+	             nc=as.integer(dim(m)[2]),
+	             sz=as.integer(width),
+	             nz=as.integer(sum(m==0))) 
+	  }
 	}else{
 	  m1 <- .C("ccaBuffED",
 	           m=as.integer(m),
