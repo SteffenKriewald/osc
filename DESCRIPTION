@@ -1,9 +1,9 @@
 Package: osc
 Type: Package
 Title: Orthodromic Spatial Clustering
-Version: 1.0.4
-Date: 2019-03-22
-Depends: raster, R (>= 2.14)
+Version: 1.0.5
+Date: 2019-12-19
+Depends: methods, raster, R (>= 2.14)
 Suggests: testthat, maps
 Author: Steffen Kriewald, Till Fluschnik, Dominik Reusser, Diego Rybski
 Maintainer: Steffen Kriewald <kriewald@pik-potsdam.de>
